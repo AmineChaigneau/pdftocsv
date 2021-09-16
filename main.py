@@ -6,15 +6,17 @@ Created on Mon Aug  9 21:04:36 2021
 @author: aminechaigneau
 """
 
-
-OUT_filename = "OG2020-_HBL_C69_HBLWTEAM7-------------FNL-000100--.csv"
-
 # Import the required Module
 import tabula
 from os import listdir, remove, replace
 from os.path import isfile, join
 
-files = [f for f in listdir('./pdf') if isfile(join('./pdf', f))]
+def listdir_nohidden(path):
+    for f in listdir(path):
+        if not f.startswith('.'):
+            yield f
+
+files = [f for f in listdir_nohidden('./pdf') if isfile(join('./pdf', f))]
 
 for IN_filename in files :
     OUT_filename = IN_filename[:-4] + '.csv'
